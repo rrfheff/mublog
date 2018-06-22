@@ -1,0 +1,166 @@
+绝对定位要加宽高才有用，不要忘了！！！
+
+bootstrap使用IE的盒模型
+设置内边框 box-sizing: border-box; 外边框 box-sizing: content-box;
+context-box：W3C的标准盒子模型，设置元素的 height/width 属性指的是content部分的高/宽
+border-box：IE传统盒子模型。设置元素的height/width属性指的是border + padding + content部分的高/宽
+
+
+利用边框画些简单的不规则图形：
+<div id="demo">
+    <div id="demo1"></div>
+</div>
+#demo{
+  width:100px;height:100px;
+  border-radius: 50%;
+}
+#demo1{
+  position: relative;
+  left:50px;
+  width:0;
+  height:0;
+  border-right: 50px solid #fff;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+}
+禁止选中
+-webkit-touch-callout: none; /* iOS Safari */
+
+-webkit-user-select: none; /* Chrome/Safari/Opera */
+
+-khtml-user-select: none; /* Konqueror */
+
+-moz-user-select: none; /* Firefox */
+
+-ms-user-select: none; /* Internet Explorer/Edge */
+
+https://www.html5tricks.com/demo/html5-canvas-3d-model-camera/index.html
+a标签去下划线
+text-decoration:none;
+setTimeout 0 的意义是，使代码异步执行，也就是说，只要有setTimeout函数，里面的内容就会脱离原来的执行顺序流，
+比如:
+alert(1)
+setTimeout(alert(2),0)
+alert(3)
+输出的结果是1 3 2
+
+未来元素绑定：
+$(function(){
+  $(document).on('click','.delete',function(){
+      console.log($(this));
+      $(this).parent().children("p").eq(0).css("color", "blue");
+  })
+})
+
+字体大小响应式:
+function fontSize(){
+    var deviceWidth=document.documentElement.clientWidth>768?768:document.documentElement.clientWidth;
+    document.documentElement.style.fontSize=(deviceWidth/25)+"px";
+}
+fontSize();
+window.onresize=fontSize;
+
+浏览器记录优先级(用户名、邮箱、密码等)：
+type>name>id>class
+一般用name告诉浏览器这个input哪种类型的输入，如name='email'
+
+php设置编码：
+header('Content-type:text/html;charset=utf-8');
+mysqli_query($connID,'set names utf8');
+php允许跨域ajax访问
+header('Access-Control-Allow-Origin:*');
+
+js判断一个数是不是整数：
+1、位运算
+function isInteger(num) {
+ return (num | 0) === num//or return (num ^ 0) === num
+}
+位运算只对整数部分生效，可以用来判断
+2、用parseInt函数判断
+function isInteger(num) {
+ return parseInt(num, 10) === num
+}
+但是这个方法只适用于20位以下的数，因为20位以上的数是以科学计数法的形式保存的，而parseInt函数会将第一个参数默认转化为字符串形式。
+3、用取整函数判断
+常见的取整函数如Math.round、Math.ceil、Math.floor等。
+function isInteger(num) {
+ return Math.round(num) === num
+}
+4、用Number.isInteger判断
+ES6中新提供的内置判断函数
+Number.isInteger(num)
+
+外联的css里面的!important优先级也比内联高，内嵌样式优先级永远最高
+
+float脱离文档流和position脱离文档流的区别：
+使用float脱离文档流时，其他盒子会无视这个元素，但其他盒子内的文本依然会为这个元素让出位置，环绕在周围
+绝对定位脱离文档流会显示在其他文字的上方
+相对定位不脱离文档流，其原始位置会一直被留着，伪脱离
+
+设置不换行，多余文字用...代替：
+white-space:nowrap;
+overflow: hidden;
+text-overflow:ellipsis;
+
+浏览器默认不允许访问本地的json数据，按照网上的步骤添加' --allow-file-access-from-files'无效
+把json数据直接存储在js文件中可以解决问题
+
+所有在全局作用域中声明的变量和函数都会变成window对象的属性和方法，
+而初始化未定义的变量会变成全局变量，也就是window的属性，但是和在全局作用域中声明的变量有区别
+声明的变量不能用delete删除，尽管它会变成window的属性，而未声明的全局变量可以被delete删除
+原因是var声明的变量，在成为window属性时会有一个名为[[Configurable]]的特性被设为false，所以不能delete。
+
+可以用window属性查询的方式查询某个全局变量是否存在
+
+跳转页面的几种方法：
+window.open()
+window.location.assign()
+window.location.href()=''//和assign相同
+window.location.reload()
+window.location.replace()//replace方法不会在history中记录，无法后退
+//location既是window的属性，也是document的属性
+
+数组平均数：
+const average = arr => arr.reduce((acc, val) => acc + val, 0) / arr.length;
+// average([1,2,3]) -> 2
+大写每个单词的首字母：
+const capitalizeEveryWord = str => str.replace(/\b[a-z]/g, char => char.toUpperCase());//\b是单词边界
+// capitalizeEveryWord('hello world!') -> 'Hello World!'
+计算数组中特定值出现的次数：
+const countOccurrences = (arr, value) => arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
+// countOccurrences([1,1,2,1,2,3], 1) -> 3
+平面化数组：
+const flatten = arr => arr.reduce((a, v) => a.concat(v), []);
+// flatten([1,[2],3,4]) -> [1,2,3,4]
+平面化数组(deep)：
+const deepFlatten = arr =>
+  arr.reduce((a, v) => a.concat(Array.isArray(v) ? deepFlatten(v) : v), []);
+// deepFlatten([1,[2],[[3],4],5]) -> [1,2,3,4,5]
+数组之间的区别：
+const difference = (a, b) => { const s = new Set(b); return a.filter(x => !s.has(x)); };
+// difference([1,2,3], [1,2]) -> [3]
+两点之间的距离：
+const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
+// distance(1,1, 2,3) -> 2.23606797749979
+过滤数组中的非唯一值：
+const filterNonUnique = arr => arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
+// filterNonUnique([1,2,2,3,4,4,5]) -> [1,3,5]
+获取数组最大值：
+const arrayMax = arr => Math.max(...arr);
+// arrayMax([10, 1, 5]) -> 10
+测试功能花费的时间：
+const timeTaken = callback => {
+  console.time('timeTaken');
+  const r = callback();
+  console.timeEnd('timeTaken');
+  return r;
+};
+// timeTaken(() => Math.pow(2, 10)) -> 1024
+// (logged): timeTaken: 0.02099609375ms
+
+
+
+
+
+
+.

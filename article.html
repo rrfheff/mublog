@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/jquery.min.js" charset="utf-8"></script>
+  <script src="js/bootstrap.js" charset="utf-8"></script>
+  <script src="js/vue.js" charset="utf-8"></script>
+  <script src="js/vue-router.js" charset="utf-8"></script>
+  <title>Document</title>
+  <style media="screen">
+  body{
+    background: #272727;
+  }
+  .navbar{
+    margin: 0;
+    top: -50px;
+    border: none;
+    height: 50px;
+  }
+  .titleTrapezoid{
+    position: absolute;
+    top: 0px;
+    width: 90%;
+    height: 50px;
+    left: 5%;
+    border-top: 50px solid #f8f8f8;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+  }
+  .articleBody{
+    position: absolute;
+    width: 90%;
+    height: auto;
+    min-height: 90%;
+    border-left: 50px solid #272727;
+    border-right: 50px solid #272727;
+    left: 5%;
+    top: 50px;
+    z-index: -1;
+    background: #ccc;
+  }
+  .list-group-item{
+    display: block;
+    font-size: 0.5rem;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    min-width: 120px;
+  }
+  .navLeft{
+    margin-top: 10px;
+  }
+  .article{
+    background: #f8f8f8;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  .dropdown-menu{
+    max-width: 200px;
+  }
+  .dropdown-menu li a{
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis !important;
+  }
+  pre{
+    padding: 5px 5px 5px 5px;
+  }
+  p{
+    line-height: 30px;
+    margin-bottom: 0;
+  }
+  samp{
+    font-weight: bold;
+  }
+  i{
+    color: #ccc;
+  }
+  .navbar-brand{
+    font: #858585;
+    text-shadow: 0 1px 10px rgba(0,0,0,.6);
+  }
+  .selectList {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    width: 200px;
+    overflow-y: scroll;
+    text-align: left;
+    background: #fff;
+    display: none;
+    float: left;
+  }
+  .selectList div {
+    padding: 2px 5px;
+    cursor: pointer;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis !important;
+  }
+  </style>
+</head>
+<body>
+  <div class="titleTrapezoid">
+    <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand" href="#">Code Gay</span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html" >主页<span class="sr-only">(current)</span></a></li>
+          <li><a href="about.html" >关于</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">精选文章<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="article.html">setTimeout 0的意义</a></li>
+              <li><a href="article.html#/tip2">Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="disabled"><a href="#">canvas动画</a></li>
+              <li class="disabled"><a href="#">web优化</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-left">
+          <div>
+            <div class="form-group">
+              <input type="text" class="form-control selectInput" placeholder="Search" list="articleList" name="articleTitle" id="articleTitle" value="" onfocus="fuzzySearch.call(this)">
+            </div>
+            <button type="submit" class="btn btn-default" id="searchBtn" onclick="return search()">搜索</button>
+          </div>
+          <div class="selectList dropDowns" id="articleList">
+              <div id="1">setTimeout 0的意义</div>
+              <div id="2">Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+  </div>
+<div class="articleBody" id="app">
+  <div class="col-xs-2">
+    <div class="navLeft">
+      <router-link class="list-group-item" to="/tip1">setTimeout 0的意义</router-link>
+      <router-link class="list-group-item" to="/tip2">Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.</router-link>
+      <router-link class="list-group-item" to='/tip3'>...</router-link>
+    </div>
+  </div>
+  <div class="col-xs-9 article">
+    <router-view class="articleInfo"></router-view>
+  </div>
+</div>
+
+<template id="tip1">
+  <div>
+    <h2>setTimeout 0的意义</h2>
+    <hr>
+    <p>之前看过几次setTimeout 0ms的代码，但是没有怎么注意，最近频繁接触到未来元素的绑定，无意中发现了setTimeout 0的意义。</p>
+    <p>简单的说，setTimeout 0 的意义是，使代码异步执行，也就是说，只要有setTimeout函数，里面的内容就会脱离原来的执行顺序流。</p>
+    <p>比如:</p>
+    <pre>
+      alert(1)
+      setTimeout(alert(2),0)
+      alert(3)
+      <samp>输出的结果是1 3 2</samp></pre>
+    <p>这个性质可以用于将某些步骤放在最后执行，以达到目的。本页面的左侧导航栏就用到了setTimeout 0方法给按钮绑定了active类，
+      因为bootstrap.js默认会为点击的按钮绑定router-link-exact-active和router-link-active类，但是这个类并不是锁死的，当点击其他地方时，
+      其独特的背景会失去，应该是用css的伪类定义的样式，而我想实现的是点击后只要不点其他样式，就把当前标签锁死，于是我给按钮定义了一个点击事件：</p>
+    <pre>
+      $('.list-group-item').click(function(){
+        var _this = $(this);
+        _this.addClass('active');
+        $('.list-group-item').not(this).removeClass('active');
+      })</pre>
+    <p>很意外，失败了。</p>
+    <p>于是打开控制台调试，发现bootstrap.js的默认行为覆盖了我的类，所以我要让我的事件在他的事件之后执行，于是：</p>
+    <pre>
+      $('.list-group-item').click(function(){
+        var _this = $(this);
+        setTimeout(function(){
+          <i>//tips，用setTimeout绑定</i>
+          _this.addClass('active');
+          <i>// $('.list-group-item').not(this).removeClass('active');</i>
+          <i>//这里不需要对其他做处理，bootstrap自己做了处理</i>
+        },0);
+      })</pre>
+    <p>
+      完事~
+    </p>
+    <hr>
+    <p>2018/6/10日更新，又知道了一个新功能！先考虑下列代码，当数组过大时，递归会导致堆栈溢出：</p>
+    <pre>
+      var list = readHugeList();
+      var nextListItem = function() {
+        var item = list.pop();
+        if (item) {
+          <i>// process the list item...</i>
+          nextListItem();
+        }
+      };</pre>
+    <p>setTimeout 0可以解决这个问题</p>
+    <pre>
+      var list = readHugeList();
+      var nextListItem = function() {
+        var item = list.pop();
+        if (item) {
+          <i>// process the list item...</i>
+          setTimeout(nextListItem, 0);
+        }
+      };</pre>
+    <p>堆栈溢出被消除，因为事件循环处理递归，而不是调用堆栈。
+      当nextListItem运行时，如果item不为null，则将超时函数（nextListItem）推送到事件队列，并且函数退出，从而使调用堆栈清零。
+      当事件队列运行超时事件时，将处理下一个项目，并设置一个计时器以再次调用nextListItem。
+      因此，该方法从头到尾不经过直接递归调用即可处理，因此调用堆栈保持清晰，无论迭代次数如何。</p>
+  </div>
+</template>
+<template id="tip2">
+  <div>
+    <h2>Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.</h2>
+    <hr>
+    <p>当我们尝试使用chrome内核(-webkit)的浏览器(如chrome,360等)去访问本地的一些文件时，会被浏览器的默认行为拒绝。
+    (好吧，其实也不是每次都会拒绝，大多数情况下拒绝，有时候又可以访问，并不是很清楚其原理-_-!)</p>
+    <p>这是正确的，浏览器出于安全考虑，应该禁止访问本地一些文件的权限。那当我们需要读取那些被禁止的文件改怎么办呢？</p>
+    <p>这里拿json数据来举例</p>
+    <p>查询资料，说可以通过在'目标'处添加' --allow-file-access-from-files'来使浏览器允许浏览器访问本地文件，但是我试了无效</p>
+    <p>我所采用的方法是把json数据直接放到js里面(也可以直接改扩展名)，这样就可以访问了。</p>
+    <p>同样，ajax访问数据或是其他类型的文件访问被拒绝，也可以采用相同的方法解决。</p>
+  </div>
+</template>
+<template id="tip3">
+  <div>
+    <h2>js</h2>
+    <p>js是未来</p>
+  </div>
+</template>
+
+</body>
+<script type="text/javascript">
+  function fontSize(){
+      var deviceWidth=document.documentElement.clientWidth>768?768:document.documentElement.clientWidth;
+      document.documentElement.style.fontSize=(deviceWidth/25)+"px";
+  }
+  fontSize();
+  window.onresize=fontSize;
+</script>
+<script type="text/javascript">
+  const Tip1 = Vue.extend({
+    template:'#tip1'
+  });
+  const Tip2 = Vue.extend({
+    template:'#tip2'
+  });
+  const Tip3 = Vue.extend({
+    template:'#tip3'
+  });
+
+  const routes = [
+    { path: '/tip1', component: Tip1 },
+    { path: '/tip2', component: Tip2 },
+    { path: '/tip3', component: Tip3},
+    //配置根路由
+    { path: '/', redirect: 'tip1' },
+  ];
+
+  const router = new VueRouter({
+    routes // (缩写) 相当于 routes: routes
+  });
+
+  const app = new Vue({
+    router
+  }).$mount('#app');
+</script>
+<script type="text/javascript">
+  $('.list-group-item').click(function(){
+    var _this = $(this);
+    setTimeout(function(){
+      //tips，用setTimeout绑定
+      _this.addClass('active');
+      // $('.list-group-item').not(this).removeClass('active');
+      //这里不需要对其他做处理，bootstrap自己做了处理
+    },0);
+  })
+</script>
+<script src="js/search.js" charset="utf-8"></script>
+</html>

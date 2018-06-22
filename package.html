@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery.min.js" charset="utf-8"></script>
+  <script src="js/bootstrap.js" charset="utf-8"></script>
+  <script src="js/vue.js" charset="utf-8"></script>
+  <script src="js/vue-router.js" charset="utf-8"></script>
+  <title>Document</title>
+  <style media="screen">
+  .navbar-brand{
+    font: #858585;
+    text-shadow: 0 1px 10px rgba(0,0,0,.6);
+  }
+  .articleBody{
+    position: absolute;
+    width: 90%;
+    height: auto;
+    min-height: 90%;
+    border-left: 50px solid #272727;
+    border-right: 50px solid #272727;
+    left: 5%;
+    top: 50px;
+    z-index: -1;
+    background: #ccc;
+  }
+  .list-group-item{
+    font-size: 0.5rem;
+  }
+  .navLeft{
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  .article{
+    background: #f8f8f8;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  .selectList {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    width: 200px;
+    overflow-y: scroll;
+    text-align: left;
+    background: #fff;
+    display: none;
+    float: left;
+  }
+  .selectList div {
+    padding: 2px 5px;
+    cursor: pointer;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis !important;
+  }
+  .dropdown-menu{
+    max-width: 200px;
+  }
+  .dropdown-menu li a{
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis !important;
+  }
+  </style>
+</head>
+<body>
+  <div class="titleTrapezoid">
+    <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand" href="#">Code Gay</span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html" >主页<span class="sr-only">(current)</span></a></li>
+          <li><a href="about.html" >关于</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">精选文章<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="article.html">setTimeout 0的意义</a></li>
+              <li><a href="article.html#/tip2">Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="disabled"><a href="#">canvas动画</a></li>
+              <li class="disabled"><a href="#">web优化</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-left">
+          <div>
+            <div class="form-group">
+              <input type="text" class="form-control selectInput" placeholder="Search" list="articleList" name="articleTitle" id="articleTitle" value="" onfocus="fuzzySearch.call(this)">
+            </div>
+            <button type="submit" class="btn btn-default" id="searchBtn" onclick="return search()">搜索</button>
+          </div>
+          <div class="selectList dropDowns" id="articleList">
+              <div id="1">setTimeout 0的意义</div>
+              <div id="2">Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+  </div>
+  <div class="articleBody" id="app">
+    <div class="col-xs-2">
+      <div class="navLeft">
+        <router-link class="list-group-item" to="/block1">3D相册</router-link>
+        <router-link class="list-group-item" to="/block2">class类小球动画</router-link>
+        <router-link class="list-group-item" to='/block3'>标签页效果</router-link>
+        <router-link class="list-group-item" to='/block4'>读取文件</router-link>
+        <router-link class="list-group-item" to='/block5'>星星打分</router-link>
+        <router-link class="list-group-item" to='/block6'>自定义radio</router-link>
+        <router-link class="list-group-item" to='/block7'>md5加密</router-link>
+      </div>
+    </div>
+    <div class="col-xs-9 article">
+      <router-view class="articleInfo"></router-view>
+    </div>
+  </div>
+
+  <template id="block1">
+    <div>
+      <h2>3D相册</h2>
+      <hr>
+      <p>网上广泛流传的3D相册，CSS3旋转效果，原生JS做鼠标拖动效果</p>
+      <p><a href="package/3D相册.rar" download>3D相册demo下载</a></p>
+    </div>
+  </template>
+  <template id="block2">
+    <div>
+      <h2>class类小球动画</h2>
+      <hr>
+      <p>练习ES6的class类时做的一个动画类型，动态小球通过class继承原始小球</p>
+      <p><a href="package/class类小球动画.rar" download>class类小球动画demo下载</a></p>
+    </div>
+  </template>
+  <template id="block3">
+    <div>
+      <h2>标签页效果</h2>
+      <hr>
+      <p>基于jquery的一个简单标签页效果，主要适用于一一对应的关系(标题和内容一一对应)，虽然现在有了各种各样的框架之后可以直接用框架做了，
+        了解一下比较原始的方法还是有好处的</p>
+      <p><a href="package/标签页效果.rar" download>标签页效果demo下载</a></p>
+    </div>
+  </template>
+  <template id="block4">
+    <div>
+      <h2>读取文件</h2>
+      <hr>
+      <p>基于jquery的文件上传的读取模块，测试时基于百度翻译API，看看能否实现翻译，后台用php接收读取后的信息。可以在控制台查看读取到的文件内容</p>
+      <p><a href="package/读取文件.rar" download>读取文件demo下载</a></p>
+    </div>
+  </template>
+  <template id="block5">
+    <div>
+      <h2>星星打分</h2>
+      <hr>
+      <p>很实用的一个划取星星的打分模块，参考自github，但是原作者删除了此文件，感谢无门</p>
+      <p><a href="package/星星打分.rar" download>星星打分demo下载</a></p>
+    </div>
+  </template>
+  <template id="block6">
+    <div>
+      <h2>自定义radio</h2>
+      <hr>
+      <p>html的radio类型没有提供样式选择，于是用画点画圈的方式，自己构造一个类似的单选按钮，然后和radio绑定，隐藏默认radio，实现自定义radio样式</p>
+      <p><a href="package/自定义radio.html" download>自定义radio demo下载</a></p>
+    </div>
+  </template>
+  <template id="block7">
+    <div>
+      <h2>md5加密</h2>
+      <hr>
+      <p>最常用的简易加密方式之一</p>
+      <p><a href="package/md5.js" download>md5加密下载</a></p>
+    </div>
+  </template>
+
+</body>
+<script type="text/javascript">
+  function fontSize(){
+      var deviceWidth=document.documentElement.clientWidth>768?768:document.documentElement.clientWidth;
+      document.documentElement.style.fontSize=(deviceWidth/25)+"px";
+  }
+  fontSize();
+  window.onresize=fontSize;
+</script>
+<script type="text/javascript">
+const Block1 = Vue.extend({
+  template:'#block1'
+});
+const Block2 = Vue.extend({
+  template:'#block2'
+});
+const Block3 = Vue.extend({
+  template:'#block3'
+});
+const Block4 = Vue.extend({
+  template:'#block4'
+});
+const Block5 = Vue.extend({
+  template:'#block5'
+});
+const Block6 = Vue.extend({
+  template:'#block6'
+});
+const Block7 = Vue.extend({
+  template:'#block7'
+});
+
+const routes = [
+  { path: '/block1', component: Block1 },
+  { path: '/block2', component: Block2 },
+  { path: '/block3', component: Block3 },
+  { path: '/block4', component: Block4 },
+  { path: '/block5', component: Block5 },
+  { path: '/block6', component: Block6 },
+  { path: '/block7', component: Block7 },
+  //配置根路由
+  { path: '/', redirect: 'block1' },
+];
+
+const router = new VueRouter({
+  routes // (缩写) 相当于 routes: routes
+});
+
+const app = new Vue({
+  router
+}).$mount('#app');
+</script>
+<script type="text/javascript">
+$('.list-group-item').click(function(){
+  var _this = $(this);
+  setTimeout(function(){
+    //blocks，用setTimeout绑定
+    _this.addClass('active');
+    // $('.list-group-item').not(this).removeClass('active');
+    //这里不需要对其他做处理，bootstrap自己做了处理
+  },0);
+})
+</script>
+<script src="js/search.js" charset="utf-8"></script>
+</html>

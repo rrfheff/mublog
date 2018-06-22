@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>主页</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/jquery.min.js" charset="utf-8"></script>
+  <script src="js/bootstrap.js" charset="utf-8"></script>
+  <style media="screen">
+  body{
+    background: #272727;
+  }
+  img{
+    /* 禁止选中 */
+    -webkit-touch-callout: none; /* iOS Safari */
+
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+
+    -khtml-user-select: none; /* Konqueror */
+
+    -moz-user-select: none; /* Firefox */
+
+    -ms-user-select: none; /* Internet Explorer/Edge */
+  }
+  .titleSvg{
+    position: absolute;
+    top: 70px;
+    width: 150px;
+    height: 150px;
+    left: 50%;
+    margin-left: -75px;
+  }
+  .logo{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    border-radius: 50px;
+  }
+  .svg{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation:mymove linear infinite;
+    /* Safari and Chrome */
+    -webkit-animation:mymove linear infinite;
+    will-change: transform;
+  }
+  .svg:nth-child(1){
+    animation-duration:10s;
+    -webkit-animation-duration:10s;
+  }
+  .svg:nth-child(2){
+    animation-duration:12s;
+    -webkit-animation-duration:12s;
+  }
+  .svg:nth-child(3){
+    animation-duration:14s;
+    -webkit-animation-duration:14s;
+  }
+  .svg:nth-child(4){
+    animation-duration:16s;
+    -webkit-animation-duration:16s;
+  }
+  .svg:nth-child(5){
+    animation-duration:18s;
+    -webkit-animation-duration:18s;
+  }
+  .svg:nth-child(6){
+    animation-duration:20s;
+    -webkit-animation-duration:20s;
+  }
+  .svg:nth-child(7){
+    animation-duration:22s;
+    -webkit-animation-duration:22s;
+  }
+  .svg:nth-child(8){
+    animation-duration:24s;
+    -webkit-animation-duration:24s;
+  }
+  .svg:nth-child(9){
+    animation-duration:30s;
+    -webkit-animation-duration:30s;
+  }
+  .svg:nth-child(10){
+    animation-duration:40s;
+    -webkit-animation-duration:40s;
+  }
+  @keyframes mymove
+  {
+    100%{transform:rotate(1turn)}
+  }
+
+  @-webkit-keyframes mymove /*Safari and Chrome*/
+  {
+    transform: rotate(1turn);
+  }
+  .navbar{
+    margin: 0;
+    top: 0px;
+    border: none;
+    z-index: 99;
+  }
+  .menu{
+    position: absolute;
+    width: 100%;
+    top: 250px;
+    text-align: center;
+  }
+  .menu p{
+    margin-bottom: 20px;
+  }
+  .menu a {
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+  }
+  .menu a{
+    /* display: inline-block; */
+    margin: 0 40px 0 40px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration:none;
+    -webkit-animation-name: whitekey;
+  }
+  .sign {
+    position:absolute;
+    font-family: "Comic Sans MS","Arial", sans-serif;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #ccc;
+    right: 10px;
+    bottom: 10px;
+  }
+  .sign:after {
+    content: '';
+    position:absolute;
+    display:block;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background: -moz-linear-gradient(top,  rgba(39,39,39,1) 0%, rgba(39,39,39,0) 100%);
+    background: -webkit-linear-gradient(top,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+    background: -o-linear-gradient(top,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+    background: -ms-linear-gradient(top,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+    background: linear-gradient(to bottom,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#272727', endColorstr='#00272727',GradientType=0 );
+    }
+  span {
+     text-shadow:
+     0 -1px 0 #858585,
+     0 1px 10px rgba(0,0,0,.6),
+     0 6px 1px rgba(0,0,0,.1),
+     0 0 5px rgba(0,0,0,.2),
+     0 1px 3px rgba(0,0,0,.3),
+     0 3px 5px rgba(0,0,0,.2),
+     0 7px 10px rgba(0,0,0,.25),
+     0 15px 10px rgba(0,0,0,.2),
+     0 25px 15px rgba(0,0,0,.15);
+  }
+  @-webkit-keyframes whitekey {
+    from {  text-shadow: 0 0 9px #333; }
+    50% {  text-shadow: 0 0 30px #fff;}
+    to {  text-shadow: 0 0 9px #333; }
+  }
+
+  #canvas{
+    position: absolute;
+    top: 70%;
+    width: 100%;
+  }
+  #bed{
+    position: absolute;
+    width: 1000px;
+    top: 550px;
+    left: 50%;
+    margin-left: -500px;
+    text-align: center;
+    color: #fff;
+    font-size: 50px;
+    font-family: 楷体;
+  }
+  .navbar-brand{
+    font: #858585;
+    text-shadow: 0 1px 10px rgba(0,0,0,.6);
+  }
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- 屏幕过小时变成右边的下拉按钮 -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand" href="#">Code Gay</span>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="m.index.html" >主页<span class="sr-only">(current)</span></a></li>
+        <li><a href="m.about.html" >关于</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">精选文章<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="m.article.html">setTimeout 0的意义</a></li>
+            <li class="disabled"><a href="#">...</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="disabled"><a href="#">canvas动画</a></li>
+            <li class="disabled"><a href="#">web优化</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="titleSvg">
+  <img class="logo" src="img/logo.jpg" alt="">
+  <img class="svg" src="svg/red1.svg" alt="">
+  <img class="svg" src="svg/red2.svg" alt="">
+  <img class="svg" src="svg/blue1.svg" alt="">
+  <img class="svg" src="svg/blue2.svg" alt="">
+  <img class="svg" src="svg/green1.svg" alt="">
+  <img class="svg" src="svg/green2.svg" alt="">
+  <img class="svg" src="svg/orange1.svg" alt="">
+  <img class="svg" src="svg/orange2.svg" alt="">
+  <img class="svg" src="svg/yellow1.svg" alt="">
+  <img class="svg" src="svg/yellow2.svg" alt="">
+</div>
+<div class="menu">
+  <p><a href="m.articleList.html" class="">学习小记</a></p>
+  <p><a href="m.packageList.html" class="">常用版块</a></p>
+  <p><a href="#" class="" onclick="alert('暂未上线，敬请期待！')">项目仓库</a></p>
+  <p><a href="#" class="" onclick="alert('暂未上线，敬请期待！')">我的收藏</a></p>
+  <p><a href="https://github.com/rrfheff" class="">github</a></p>
+  <p><a href="#" class="" onclick="alert('暂未上线，敬请期待！')">life</a></p>
+</div>
+<canvas id="canvas"></canvas>
+<!-- <p id="bed">不知道干嘛的话，躺着就好了</p> -->
+<script src="js/m.canvasWords.js" charset="utf-8"></script>
+<h1 class="sign"><span>——Made by RRF</span></h1>
+
+</body>
+<script type="text/javascript">
+  // (()=>{
+  //   alert('新做的页面，内容正在整合中...')
+  // })()
+</script>
+</html>
+>

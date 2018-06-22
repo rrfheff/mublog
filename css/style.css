@@ -1,0 +1,214 @@
+body{
+  background: #272727;
+}
+img{
+  /* 禁止选中 */
+  -webkit-touch-callout: none; /* iOS Safari */
+
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+
+  -khtml-user-select: none; /* Konqueror */
+
+  -moz-user-select: none; /* Firefox */
+
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+.titleSvg{
+  position: absolute;
+  top: 70px;
+  width: 150px;
+  height: 150px;
+  left: 50%;
+  margin-left: -75px;
+}
+.logo{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  border-radius: 50px;
+}
+.svg{
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation:mymove linear infinite;
+  /* Safari and Chrome */
+  -webkit-animation:mymove linear infinite;
+  will-change: transform;
+}
+.svg:nth-child(1){
+  animation-duration:10s;
+  -webkit-animation-duration:10s;
+}
+.svg:nth-child(2){
+  animation-duration:12s;
+  -webkit-animation-duration:12s;
+}
+.svg:nth-child(3){
+  animation-duration:14s;
+  -webkit-animation-duration:14s;
+}
+.svg:nth-child(4){
+  animation-duration:16s;
+  -webkit-animation-duration:16s;
+}
+.svg:nth-child(5){
+  animation-duration:18s;
+  -webkit-animation-duration:18s;
+}
+.svg:nth-child(6){
+  animation-duration:20s;
+  -webkit-animation-duration:20s;
+}
+.svg:nth-child(7){
+  animation-duration:22s;
+  -webkit-animation-duration:22s;
+}
+.svg:nth-child(8){
+  animation-duration:24s;
+  -webkit-animation-duration:24s;
+}
+.svg:nth-child(9){
+  animation-duration:30s;
+  -webkit-animation-duration:30s;
+}
+.svg:nth-child(10){
+  animation-duration:40s;
+  -webkit-animation-duration:40s;
+}
+@keyframes mymove
+{
+  100%{transform:rotate(1turn)}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+  transform: rotate(1turn);
+}
+.navbar{
+  margin: 0;
+  top: -50px;
+  border: none;
+  height: 50px;
+}
+.titleTrapezoid{
+  position: absolute;
+  top: 0px;
+  width: 90%;
+  height: 50px;
+  left: 5%;
+  /* margin-left: -840px; */
+  border-top: 50px solid #f8f8f8;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+}
+.menu{
+  position: absolute;
+  width: 100%;
+  top: 250px;
+  text-align: center;
+}
+.menu a:hover {
+	-webkit-animation-duration: 2s;
+	-webkit-animation-iteration-count: infinite;
+}
+.menu a{
+  /* display: inline-block; */
+  margin: 0 40px 0 40px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration:none;
+  -webkit-animation-name: whitekey;
+}
+.sign {
+  position:absolute;
+  font-family: "Comic Sans MS","Arial", sans-serif;
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+  color: #ccc;
+  right: 10px;
+  bottom: 10px;
+}
+.sign:after {
+  content: '';
+  position:absolute;
+  display:block;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  background: -moz-linear-gradient(top,  rgba(39,39,39,1) 0%, rgba(39,39,39,0) 100%);
+  background: -webkit-linear-gradient(top,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+  background: -o-linear-gradient(top,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+  background: -ms-linear-gradient(top,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+  background: linear-gradient(to bottom,  rgba(39,39,39,1) 0%,rgba(39,39,39,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#272727', endColorstr='#00272727',GradientType=0 );
+  }
+span {
+   text-shadow:
+   0 -1px 0 #858585,
+   0 1px 10px rgba(0,0,0,.6),
+   0 6px 1px rgba(0,0,0,.1),
+   0 0 5px rgba(0,0,0,.2),
+   0 1px 3px rgba(0,0,0,.3),
+   0 3px 5px rgba(0,0,0,.2),
+   0 7px 10px rgba(0,0,0,.25),
+   0 15px 10px rgba(0,0,0,.2),
+   0 25px 15px rgba(0,0,0,.15);
+}
+@-webkit-keyframes whitekey {
+  from {  text-shadow: 0 0 9px #333; }
+  50% {  text-shadow: 0 0 30px #fff;}
+  to {  text-shadow: 0 0 9px #333; }
+}
+
+#canvas{
+  position: absolute;
+  top: 350px;
+}
+#bed{
+  position: absolute;
+  width: 1000px;
+  top: 550px;
+  left: 50%;
+  margin-left: -500px;
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+  font-family: 楷体;
+}
+.navbar-brand{
+  font: #858585;
+  text-shadow: 0 1px 10px rgba(0,0,0,.6);
+}
+.dropdown-menu{
+  max-width: 200px;
+}
+.dropdown-menu li a{
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis !important;
+}
+.selectList {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  width: 200px;
+  overflow-y: scroll;
+  text-align: left;
+  background: #fff;
+  display: none;
+  float: left;
+}
+.selectList div {
+  padding: 2px 5px;
+  cursor: pointer;
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis !important;
+}

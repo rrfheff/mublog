@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/jquery.min.js" charset="utf-8"></script>
+  <script src="js/bootstrap.js" charset="utf-8"></script>
+  <title>Document</title>
+  <style media="screen">
+  body{
+    background: #272727;
+  }
+  .navbar{
+    margin: 0;
+    top: 0px;
+    border: none;
+  }
+  .article{
+    position: absolute;
+    width: 100%;
+    background: #f8f8f8;
+    min-height: 95%;
+    padding: 20px 5px 20px 5px;
+  }
+  p{
+    font-size: 15px;
+    line-height: 30px;
+    margin-bottom: 10px;
+  }
+  span{
+    font-size: 20px;
+  }
+  .navbar-brand{
+    font: #858585;
+    text-shadow: 0 1px 10px rgba(0,0,0,.6);
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- 屏幕过小时变成右边的下拉按钮 -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand" href="#">Code Gay</span>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="m.index.html" >主页<span class="sr-only">(current)</span></a></li>
+        <li><a href="m.about.html" >关于</a></li>
+        <li class="dropdown active">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">精选文章<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="m.article.html">setTimeout 0的意义</a></li>
+            <li class="disabled"><a href="#">...</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="disabled"><a href="#">canvas动画</a></li>
+            <li class="disabled"><a href="#">web优化</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="article">
+  <p><a class="list-group-item" href="package/3D相册.rar" download>
+    <span>3D相册</span>
+    <br>
+    网上广泛流传的3D相册，CSS3旋转效果，原生JS做鼠标拖动效果
+  </a></p>
+  <p><a class="list-group-item" href="package/class类小球动画.rar" download>
+    <span>class类小球动画</span>
+    <br>
+    练习ES6的class类时做的一个动画类型，动态小球通过class继承原始小球
+  </a></p>
+  <p><a class="list-group-item" href="package/标签页效果.rar" download>
+    <span>标签页效果</span>
+    <br>
+    基于jquery的一个简单标签页效果，主要适用于一一对应的关系(标题和内容一一对应)，虽然现在有了各种各样的框架之后可以直接用框架做了，
+      了解一下比较原始的方法还是有好处的
+  </a></p>
+  <p><a class="list-group-item" href="package/读取文件.rar" download>
+    <span>读取文件</span>
+    <br>
+    基于jquery的文件上传的读取模块，测试时基于百度翻译API，看看能否实现翻译，后台用php接收读取后的信息。
+    可以在控制台查看读取到的文件内容
+  </a></p>
+  <p><a class="list-group-item" href="package/星星打分.rar" download>
+    <span>星星打分</span>
+    <br>
+    很实用的一个划取星星的打分模块，参考自github，但是原作者删除了此文件，感谢无门
+  </a></p>
+  <p><a class="list-group-item" href="package/自定义radio.html" download>
+    <span>自定义radio</span>
+    <br>
+    html的radio类型没有提供样式选择，于是用画点画圈的方式，自己构造一个类似的单选按钮，然后和radio绑定，隐藏默认radio，实现自定义radio样式
+  </a></p>
+  <p><a class="list-group-item" href="package/md5.js" download>
+    <span>md5加密</span>
+    <br>
+    最常用的简易加密方式之一
+  </a></p>
+</div>
+</body>
+<script type="text/javascript">
+  function fontSize(){
+      var deviceWidth=document.documentElement.clientWidth>768?768:document.documentElement.clientWidth;
+      document.documentElement.style.fontSize=(deviceWidth/25)+"px";
+  }
+  fontSize();
+  window.onresize=fontSize;
+</script>
+</html>
