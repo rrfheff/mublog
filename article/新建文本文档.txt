@@ -126,6 +126,16 @@ const average = arr => arr.reduce((acc, val) => acc + val, 0) / arr.length;
 大写每个单词的首字母：
 const capitalizeEveryWord = str => str.replace(/\b[a-z]/g, char => char.toUpperCase());//\b是单词边界
 // capitalizeEveryWord('hello world!') -> 'Hello World!'
+//改进，考虑I'm的单引号。但是这并不是一劳永逸的，因为单引号后面也可能跟大写。
+function titleCase(str) {
+  str = str.toLowerCase();
+  str = str.replace(/\b[a-z]/g, function(char){
+    return char.toUpperCase();
+  });
+  return str.replace(/'./g, function(char){
+    return char.toLowerCase();
+  });
+}
 计算数组中特定值出现的次数：
 const countOccurrences = (arr, value) => arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
 // countOccurrences([1,1,2,1,2,3], 1) -> 3
@@ -158,9 +168,327 @@ const timeTaken = callback => {
 // timeTaken(() => Math.pow(2, 10)) -> 1024
 // (logged): timeTaken: 0.02099609375ms
 
+快速排序：
+Array.prototype.fastSort = function(){//这里不能用箭头函数，注意this
+  if (this.length<=1) {
+    return this;
+  };
+  let idx = this.pop();
+  let arrLeft = [];
+  let arrRight = [];
+  for (let i = 0; i < this.length; i++) {
+   if (this[i]<=idx) {
+     arrLeft.push(this[i]);
+   }else if(this[i]>idx){
+     arrRight.push(this[i]);
+   };
+  };
+  return arrLeft.fastSort().concat(idx,arrRight.fastSort());
+};
+let arr = [12,3,41,16,22,3,45,64,2,15,36,54];
+console.log(arr.fastSort());
+// function fastSort(arr){
+//   if (arr.length<=1) {
+//     return arr;
+//   };
+//   let idx = arr.pop();
+//   let arrLeft = [];
+//   let arrRight = [];
+//   for (let i = 0; i < arr.length; i++) {
+//    if (arr[i]<=idx) {
+//      arrLeft.push(arr[i]);
+//    }else if(arr[i]>idx){
+//      arrRight.push(arr[i]);
+//    };
+//   };
+//   return fastSort(arrLeft).concat(idx,fastSort(arrRight));
+// }
+
+sort排序：
+//sort排序比快速排序更优也更简洁
+//原理：
+arr.sort(compare);
+function compare(x,y){
+  if (x<y) {
+    return -1;
+  }else if(x>y){
+    return 1;
+  }else if (x==y) {
+    return 0;
+  }
+}
+//可以简化为
+function compare(x,y){
+  return x-y;
+}
+//还可用于对象数组的排序
+var arr = [{name: "zlw", age: 24}, {name: "wlz", age: 25}];
+var compare = function (prop) {//这里改造为可根据对象属性名来选择比较项
+    return function (obj1, obj2) {
+        var val1 = obj1[prop];
+        var val2 = obj2[prop];
+        if (val1 < val2) {
+            return -1;
+        } else if (val1 > val2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+arr.sort(compare("age"))
+
+归并排序：
+//归并排序理论上比较优，但实现并不很好
+console.time('归并排序');
+mergeSort(arr);
+console.timeEnd('归并排序');
+console.log(mergeSort(arr));
+function merge(left, right) {
+  var tmp = [];
+  while (left.length && right.length) {
+    if (left[0] < right[0])
+      tmp.push(left.shift());
+    else
+      tmp.push(right.shift());
+  }
+  return tmp.concat(left, right);
+}
+function mergeSort(a) {
+  if (a.length === 1)
+    return a;
+  var mid = ~~(a.length / 2)
+    , left = a.slice(0, mid)
+    , right = a.slice(mid);
+  return merge(mergeSort(left), mergeSort(right));
+}
 
 
+几种求数组最大值算法的比较：
+//拓展运算符和apply的原理相同，运行速度可以认为相同，for循环冒泡较差，大约是前者的两倍时间
+let arr = [12,3,41,16,22,3,45,64,2,15,36,54];
+const max = arr => {
+  console.time('扩展运算符求最大值');
+  Math.max(...arr);
+  console.timeEnd('扩展运算符求最大值');
+}
+const max2 = arr => {
+  console.time('apply求最大值');
+  Math.max.apply(null,arr);
+  console.timeEnd('apply求最大值');
+}
+const max3 = arr => {
+  console.time('for求最大值');
+  let max = arr[0];
+  for (let i = 0; i < arr.length - 1; i++) {
+      max = max < arr[i+1] ? arr[i+1] : max;
+  }
+  console.timeEnd('for求最大值');
+  return max;
+}
+max(arr);
+max2(arr);
+max3(arr);
 
+多维数组查找所有子数组的最大值：
+//本质是不规则树的问题
+const max = (array) => {
+    const a1 = [];
+    const a2 = [];
+    array.forEach((a) => (a instanceof Array) ? a1.push(max(a)) : a2.push(a));
+    a1.push(Math.max(...a2));
+    return a1.reduce((acc, val) => acc.concat(val), []).sort((a, b) => a - b);
+};
+max([1, 2, [3, 4]])//return[2, 4]
+max([1000, [1001, 857, 1]])//return[1000, 1001]
+max([[4, 5, 1, 3], 2 , 6 ,[1000, [1001, 857, 1]]])//return[5, 6, 1000, 1001]
+
+检查是否回文：
+function palindrome(str) {
+  str = str.replace(/\W|_/g,'').toLowerCase();
+  var str1 = str;
+  str = str.split('').reverse().join('');
+  if(str==str1){
+    return true;
+  }else{
+    return false;
+  }
+}
+找出最长的单词：
+function findLongestWord(str) {
+  var arr = str.split(' ');
+  var max = arr[0].length;
+  for(var i=0;i<arr.length;i++){
+    if(arr[i+1]&&arr[i+1].length>max){
+      max = arr[i+1].length;
+    }
+  }
+  return max;
+}
+句中单词首字母大写：
+function titleCase(str) {
+  str = str.toLowerCase();
+  str = str.replace(/\b[a-z]/g, function(char){
+    return char.toUpperCase();
+  });
+  return str.replace(/'./g, function(char){
+    return char.toLowerCase();
+  });
+}
+找出多个数组中的最大数：
+function largestOfFour(arr) {
+  return arr.map(Function.apply.bind(Math.max, null));
+}
+largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]);
+省略表示字符串：
+function truncate(str, num) {
+  if(str.length>num&&num>3){
+    return str.slice(0,num-3)+'...';
+  }else if(str.length>num&&num<=3){
+    return str.slice(0,num)+'...';
+  }else if(str.length<=num){
+    return str;
+  }
+}
+分割数组：
+function chunk(arr, size) {
+  let newArr = [];
+  for(let i=0;i<arr.length;i+=size){
+    newArr.push(arr.slice(i,i+size));
+  }
+  return newArr;
+}
+比较一个字符串是否含有另一个字符串的所有字符：
+function mutation(arr) {
+  var check = arr[1].toLowerCase().split('');
+  for(let i=0;i<check.length;i++){
+    if(arr[0].toLowerCase().indexOf(check[i])==-1){
+      return false;
+    }
+  }
+  return true;
+}
+mutation(["hello", "hey"]);
+过滤数组假值：
+function bouncer(arr) {
+  return arr.filter(word=>Boolean(word)!=false);
+}
+从数组中删除元素：
+function destroyer(arr) {
+  let [x,...rest] = arguments;
+  console.log(rest);
+  for (var i = 0; i < rest.length; i++) {
+    x=x.filter(word=>{
+      if (word!=rest[i]) {
+        return true;
+      }else{
+        return false;
+      }
+    });
+  };
+  return x;
+}
+destroyer([1, 2, 3, 1, 2, 3], 2, 3);
+数组排序并找出元素索引：
+function where(arr, num) {
+  arr=arr.sort((x,y)=>{
+    if(x>y)
+      return 1;
+    else if(x<y)
+      return -1;
+    else if(x==y)
+      return 0;
+  });
+  for(let i=0;i<arr.length+1;){
+    if(arr[i]<num)
+      i++;
+    else
+      return i;
+  };
+}
+where([40, 60], 50);
+ROT13加密：
+//这里只做了大写字母的加密
+//用map更简洁
+function rot13(str) {
+  var arr = str.split('');
+  arr.forEach((item,index)=>{
+    if ((/[A-M]/g).test(arr[index])) {
+      arr[index]=String.fromCharCode(item.charCodeAt(0)+13);
+    }else if ((/[N-Z]/g).test(arr[index])) {
+      arr[index]=String.fromCharCode(item.charCodeAt(0)-13);
+    }
+  });
+  return arr.join('');
+}
+rot13("SERR PBQR PNZC");
+
+setInterval会无视报错不断调用，及时catch了错误还是会调用
+改用setTimeout的递归调用来代替setInterval
+不要用setInterval来使Ajax每隔一段时间发送问询，因为由于一些原因，某些问询的时间会变得很长，最后客户端会堆满ajax请求
+
+~~按位非两次，会向下取整，可以用于数值转换(如~~false ~~'11')
+
+HTTPS = 数据加密 + 网站认证 + 完整性验证 + HTTP
+
+执行代码钱会先进行一次扫描，将函数声明和变量声明提升
+
+ES6的类知识基于原型继承的语法糖
+
+
+this深入理解：
+var name = "Jay Global";
+var person = {
+    name: 'Jay Person',
+    details: {
+        name: 'Jay Details',
+        print: function() {
+            return this.name;
+        }
+    },
+    print: function() {
+        return this.name;
+    }
+};
+var name1 = person.print;
+var name2 = person.details;
+console.log(name1()); // Jay Global 前面没有调用对象，this指向了window
+console.log(name2.print()) // Jay Details 指向person.details
+
+箭头函数里面this指向函数的构造着而不是指向调用者
+var object = {
+    data: [1,2,3],
+    dataDouble: [1,2,3],
+    double: function() {
+        console.log("this inside of outerFn double()");
+        console.log(this);
+        return this.data.map(function(item) {
+            console.log(this);      // 这里的匿名函数没有调用者，所以this指向了window对象。在严格模式下会指向undefined
+            return item * 2;
+        });
+    },
+    doubleArrow: function() {
+        console.log("this inside of outerFn doubleArrow()");
+        console.log(this);
+        return this.dataDouble.map(item => {
+            console.log(this);      // 箭头函数的this等于构造时上下文中的this，也就是object
+            return item * 2;
+        });
+    }
+};
+object.double();
+object.doubleArrow();
+
+select初始空白：
+window.onload=()=>{
+  document.querySelector('select').selectedIndex = -1;
+}
+select获取每个选项的value:
+<select class="" onchange='selectChange(this[selectedIndex].value)'>
+  <option value="1">筛选价格10元以下的</option>
+  <option value="2">选项2</option>
+  <option value="3">选项3</option>
+</select>
 
 
 .
